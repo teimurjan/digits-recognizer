@@ -1,2 +1,2 @@
-release: mkdir storage && touch storage/classifier.txt
+release: mkdir app/storage && touch app/storage/classifier.txt
 web: gunicorn "app:create_app()"
