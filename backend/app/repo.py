@@ -6,7 +6,7 @@ class ClassifierRepo:
         self.storage = storage
 
     def get(self):
-        with open(self.storage, 'rb') as out:
+        with open(self.storage, 'wb') as out:
             try:
                 classifier_str = out.read()
                 if classifier_str != '':
