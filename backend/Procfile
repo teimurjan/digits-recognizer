@@ -1,1 +1,2 @@
+release: sh mkdir storage && touch storage/classifier.txt
 web: gunicorn "app:create_app()"
