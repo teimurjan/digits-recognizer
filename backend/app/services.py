@@ -12,7 +12,10 @@ class PredictDigitService:
         classifier = self.repo.get()
         if classifier is None:
             digits = load_digits()
-            classifier = ClassifierFactory.create_with_fit(digits.data, digits.target)
+            classifier = ClassifierFactory.create_with_fit(
+                digits.data,
+                digits.target
+            )
             self.repo.update(classifier)
         x = to_classifier_input_format(image_data_uri)
         prediction = classifier.predict(x)[0]

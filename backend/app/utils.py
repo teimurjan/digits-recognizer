@@ -6,7 +6,6 @@ from io import BytesIO
 
 
 def data_uri_to_image(uri):
-    print(uri)
     encoded_data = uri.split(',')[1]
     image = base64.b64decode(encoded_data)
     return Image.open(BytesIO(image))
@@ -24,6 +23,13 @@ def replace_transparent_background(image):
     return Image.fromarray(image_arr)
 
 
+def crop_image_frame(image, color=255):
+    image_arr = np.array(image)
+    cropped_image_arr = image_arr[~np.all(image_arr == color, axis=1)]
+    cropped_image_arr = cropped_image_arr[:, ~np.all(cropped_image_arr == color, axis=0)]
+    return Image.fromarray(cropped_image_arr)
+
+
 def resize_image(image):
     return image.resize((8, 8), Image.ANTIALIAS)
 
@@ -34,17 +40,19 @@ def white_to_black(image):
     return Image.fromarray(image_arr)
 
 
-def reduce_intensity(image):
+def to_flat_grayscaled_image_arr(image):
     image_arr = np.array(image)
     image_arr = exposure.rescale_intensity(image_arr, out_range=(0, 16))
-    return Image.fromarray(image_arr)
+    return image_arr.flatten()
 
 
 def to_classifier_input_format(data_uri):
     raw_image = data_uri_to_image(data_uri)
-    image_with_background = raw_image.convert('L')
-    resized_image = resize_image(image_with_background)
+    image_with_background = replace_transparent_background(raw_image)
+    grayscaled_image = image_with_background.convert('L')
+    cropped_image = crop_image_frame(grayscaled_image)
+    resized_image = resize_image(cropped_image)
     inverted_image = white_to_black(resized_image)
-    low_intensed_image = reduce_intensity(inverted_image)
-    flat_image = np.array(low_intensed_image).flatten()
-    return np.array([flat_image])
+    return np.array([
+        to_flat_grayscaled_image_arr(inverted_image)
+    ])
