@@ -60,7 +60,7 @@ class App extends Component {
               imageFormat='jpg'
               backgroundColor='white'
               lineColor='gray'
-              lineWidth={10}
+              lineWidth={8}
             />
           </div>
           {prediction && <h3>Predicted value is: {prediction}</h3>}
