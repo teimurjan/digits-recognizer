@@ -53,7 +53,7 @@ class App extends Component {
           </header>
           <div style={SKETCH_CONTAINER_STYLE}>
             <SketchField
-              ref={c => this.sketch = c}
+              ref={sketch => this.sketch = sketch}
               width='100%'
               height='100%'
               tool={Tools.Pencil}
