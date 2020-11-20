@@ -3,8 +3,8 @@ import { SketchField, Tools } from "react-sketch";
 
 import { makePrediction } from "./api";
 
-import logo from "./assets/logo.svg";
-import "./assets/App.css";
+import logo from "./logo.svg";
+import "./App.css";
 
 const pixels = (count) => `${count}px`;
 const percents = (count) => `${count}px`;
