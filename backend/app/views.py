@@ -1,17 +1,15 @@
 from flask import render_template, request, Response
-from flask.views import MethodView
+from flask.views import MethodView, View
+
+from flask.views import View
 
 from app.repo import ClassifierRepo
 from app.services import PredictDigitService
 from settings import CLASSIFIER_STORAGE
 
-
-def create_root_view(app):
-    @app.route('/', defaults={'path': ''})
-    @app.route('/<path:path>')
-    def root(path):
-        return render_template("index.html")
-
+class IndexView(View):
+    def dispatch_request(self):
+        return render_template('index.html')
 
 class PredictDigitView(MethodView):
     def post(self):

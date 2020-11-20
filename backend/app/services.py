@@ -1,8 +1,7 @@
 from sklearn.datasets import load_digits
 
 from app.classifier import ClassifierFactory
-from app.utils import to_classifier_input_format
-
+from app.image_processing import process_image
 
 class PredictDigitService:
     def __init__(self, repo):
@@ -17,6 +16,10 @@ class PredictDigitService:
                 digits.target
             )
             self.repo.update(classifier)
-        x = to_classifier_input_format(image_data_uri)
+        
+        x = process_image(image_data_uri)
+        if x is None:
+            return 0
+
         prediction = classifier.predict(x)[0]
         return prediction
