@@ -3,8 +3,8 @@ from flask.views import MethodView, View
 
 from flask.views import View
 
-from app.repo import ClassifierRepo
-from app.services import PredictDigitService
+from repo import ClassifierRepo
+from services import PredictDigitService
 from settings import CLASSIFIER_STORAGE
 
 class IndexView(View):

@@ -1,7 +1,7 @@
 from sklearn.datasets import load_digits
 
-from app.classifier import ClassifierFactory
-from app.image_processing import process_image
+from classifier import ClassifierFactory
+from image_processing import process_image
 
 class PredictDigitService:
     def __init__(self, repo):
