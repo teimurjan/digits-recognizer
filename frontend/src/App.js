@@ -7,7 +7,7 @@ import logo from "./logo.svg";
 import "./App.css";
 
 const pixels = (count) => `${count}px`;
-const percents = (count) => `${count}px`;
+const percents = (count) => `${count}%`;
 
 const MAIN_CONTAINER_WIDTH_PX = 200;
 const MAIN_CONTAINER_HEIGHT = 100;
@@ -26,24 +26,19 @@ const SKETCH_CONTAINER_STYLE = {
 
 const App = () => {
   const sketchRef = useRef(null);
-  const [errors, setErrors] = useState();
-  const [value, setValue] = useState();
+  const [error, setError] = useState();
   const [prediction, setPrediction] = useState();
 
   const handleSubmit = () => {
     const image = sketchRef.current.toDataURL();
 
     setPrediction(undefined);
-    setErrors(undefined);
+    setError(undefined);
 
-    makePrediction(image).then(setPrediction).catch(setErrors);
+    makePrediction(image).then(setPrediction).catch(setError);
   };
 
   const handleClear = (e) => sketchRef.current.clear();
-
-  const handleChange = (e) => {
-    setValue(e.target.value);
-  };
 
   return (
     <div className="App" style={MAIN_CONTAINER_STYLE}>
@@ -55,20 +50,18 @@ const App = () => {
         <div style={SKETCH_CONTAINER_STYLE}>
           <SketchField
             ref={sketchRef}
-            onChange={handleChange}
             width="100%"
             height="100%"
             tool={Tools.Pencil}
             imageFormat="jpg"
             lineColor="#111"
             lineWidth={10}
-            value={value}
           />
         </div>
         {prediction && <h3>Predicted value is: {prediction}</h3>}
         <button onClick={handleClear}>Clear</button>
         <button onClick={handleSubmit}>Guess the number</button>
-        {errors && <p style={{ color: "red" }}>Something went wrong</p>}
+        {error && <p style={{ color: "red" }}>Something went wrong</p>}
       </div>
     </div>
   );

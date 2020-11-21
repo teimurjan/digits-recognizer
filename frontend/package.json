@@ -14,7 +14,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && cd build && cp index.html ../../backend/app/templates/ && cp -R static ../../backend/app/ && cp favicon.ico ../../backend/app/static && cd ..",
+    "build": "react-scripts build && cd build && cp index.html ../../backend/templates/ && cp -R static ../../backend/ && cp favicon.ico ../../backend/static && cd ..",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

@@ -1,6 +1,2 @@
-.ipynb_checkpoints/
-.DS_Store/
-.vscode/
-.idea/
-test_request.*
+.DS_Store
 __pycache__/

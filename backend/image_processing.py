@@ -14,7 +14,8 @@ def data_uri_to_image(uri):
 def replace_transparent_background(image):
     image_arr = np.array(image)
 
-    if len(image_arr.shape) == 2:
+    has_no_alpha = len(image_arr.shape) < 3 or image_arr.shape[2] < 4
+    if has_no_alpha:
         return image
 
     alpha1 = 0
@@ -43,7 +44,7 @@ def pad_image(image):
 
 
 def resize_image(image):
-    return image.resize((8, 8), Image.ANTIALIAS)
+    return image.resize((8, 8), Image.LINEAR)
 
 
 def invert_colors(image):
